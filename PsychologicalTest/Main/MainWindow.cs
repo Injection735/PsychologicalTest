@@ -1,5 +1,7 @@
-﻿using PsychologicalTest.MathTest;
+﻿using PsychologicalTest.EncryptTest;
+using PsychologicalTest.MathTest;
 using PsychologicalTest.MemTest;
+using PsychologicalTest.MissTest;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -46,8 +48,10 @@ namespace PsychologicalTest
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.Memory; //Kettel;
+			iteration = TestIteration.Encryption; //Kettel;
 			AlignElements();
+			MissingDetailsElement el = new MissingDetailsElement();
+			el.AddElement();
 		}
 
 		private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,11 +96,22 @@ namespace PsychologicalTest
 					NextIterationMemory();
 				break;
 				case TestIteration.Encryption:
-				
+					NextIterationEncryption();
 				break;
 				case TestIteration.MissingDetails:
-				
+					
 				break;
+			}
+		}
+
+		private void NextIterationEncryption()
+		{
+			if (!isEncryptionStarted)
+			{
+				EncryptionLegend legend = new EncryptionLegend(300, 10, 20, 20);
+				legend.AddElement();
+				//EncryptionTestContainer container = new EncryptionTestContainer(300, 25, 20, 20);
+				//container.AddElement();
 			}
 		}
 

@@ -10,16 +10,17 @@ namespace PsychologicalTest.EncryptTest
 	{
 		private List<EncryptionTestElement> elements;
 		private int maxWidth;
-		int currentX;
-		int currentY;
-		int count;
-		int startX = 0;
+		private int currentX;
+		private int currentY;
+		private int count;
+		private int startX = 0;
 
 		public EncryptionTestContainer(int maxWidth, int count, int x, int y)
 		{
 			elements = new List<EncryptionTestElement>();
 			
 			this.maxWidth = maxWidth;
+			this.count = count;
 
 			currentX = x;
 			currentY = y;
@@ -46,6 +47,14 @@ namespace PsychologicalTest.EncryptTest
 		{
 			foreach(EncryptionTestElement element in elements)
 				element.Hide();
+		}
+
+		public void AcceptAnswers()
+		{
+			var legend = EncryptionTest.GetLegend();
+
+			foreach (EncryptionTestElement element in elements)
+				EncryptionTest.answers.Add(legend[element.GetInfo()] == element.GetValue());
 		}
 	}
 }

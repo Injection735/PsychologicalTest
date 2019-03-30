@@ -35,7 +35,9 @@
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.errorLabel = new System.Windows.Forms.Label();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.answersGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainTextLabel
@@ -116,11 +118,22 @@
 			this.errorLabel.Text = "Не выбран ответ!";
 			this.errorLabel.Click += new System.EventHandler(this.label2_Click);
 			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.ImageLocation = "http://psylab.info/images/c/cc/WAIS_-_%D1%81%D1%83%D0%B1%D1%82%D0%B5%D1%81%D1%82_" +
+    "8_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_1.png";
+			this.pictureBox1.Location = new System.Drawing.Point(144, 83);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+			this.pictureBox1.TabIndex = 6;
+			this.pictureBox1.TabStop = false;
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.errorLabel);
 			this.Controls.Add(this.buttonNext);
 			this.Controls.Add(this.answersGroup);
@@ -130,6 +143,7 @@
 			this.Load += new System.EventHandler(this.MainWindow_Load);
 			this.answersGroup.ResumeLayout(false);
 			this.answersGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -144,5 +158,6 @@
 		private System.Windows.Forms.RadioButton radioButton2;
 		private System.Windows.Forms.Button buttonNext;
 		private System.Windows.Forms.Label errorLabel;
+		private System.Windows.Forms.PictureBox pictureBox1;
 	}
 }

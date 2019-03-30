@@ -36,6 +36,7 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -48,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EncryptTest\EncryptionLegend.cs" />
+    <Compile Include="EncryptTest\EncryptionLegendElement.cs" />
     <Compile Include="EncryptTest\EncryptionTest.cs" />
     <Compile Include="EncryptTest\EncryptionTestContainer.cs" />
     <Compile Include="EncryptTest\EncryptionTestElement.cs" />
@@ -68,9 +71,16 @@
     <Compile Include="MathTest\TestControlElement.cs" />
     <Compile Include="MemTest\MemoryTest.cs" />
     <Compile Include="MemTest\MemoryTestElement.cs" />
+    <Compile Include="MissTest\MissingDetailsElement.cs" />
+    <Compile Include="MissTest\MissingDetailsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Kettel\Question.cs" />
     <Compile Include="Kettel\TestResult.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TestTimer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +91,13 @@
     <EmbeddedResource Include="Main\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

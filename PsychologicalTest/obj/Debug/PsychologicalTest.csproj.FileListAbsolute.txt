@@ -11,3 +11,4 @@ C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.pdb
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.MainWindow.resources
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.csproj.GenerateResource.cache
+C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.Properties.Resources.resources

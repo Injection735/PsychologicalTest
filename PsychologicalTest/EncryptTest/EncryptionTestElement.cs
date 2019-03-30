@@ -9,10 +9,11 @@ namespace PsychologicalTest.EncryptTest
 {
 	class EncryptionTestElement : IGraphicElement
 	{
-		public const int WIDTH = 15;
-		public const int HEIGHT = 34;
+		public const int WIDTH = 20;
+		public const int HEIGHT = 40;
 
 		private static Random random = new Random();
+		private static int tabIndex = 0;
 
 		private Label label;
 		private RichTextBox textBox;
@@ -27,12 +28,14 @@ namespace PsychologicalTest.EncryptTest
 			label.Text = "";
 
 			textBox = new RichTextBox();
+			textBox.TextChanged += OnTextChanged;
 			textBox.Multiline = false;
 			textBox.Location = new System.Drawing.Point(x, y + 17);
 			textBox.Size = new System.Drawing.Size(WIDTH, HEIGHT / 2);
-			textBox.Location = new System.Drawing.Point(label.Location.X + label.Size.Width, y);
 			textBox.BorderStyle = BorderStyle.FixedSingle;
-			textBox.Visible = false;
+			textBox.TabIndex = tabIndex;
+			textBox.Margin = new Padding(3, 3, 3, 3);
+			tabIndex++;
 		}
 
 		public void AddElement()
@@ -50,7 +53,16 @@ namespace PsychologicalTest.EncryptTest
 
 		public void SetRandomValue()
 		{
-			label.Text = random.Next(10).ToString();
+			label.Text = (random.Next(9) + 1).ToString();
 		}
+
+		private void OnTextChanged(object sender, EventArgs e)
+		{
+			textBox.Text = "  " + textBox.Text[0].ToString();
+		}
+
+		public int GetInfo() => int.Parse(label.Text);
+
+		public char GetValue() => label.Text[label.Text.Length - 1];
 	}
 }
