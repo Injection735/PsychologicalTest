@@ -33,10 +33,10 @@ namespace PsychologicalTest.MemTest
 
 		public static bool CanBeContinued(string row)
 		{
-			symbolLength = Math.Max(previousRow.Replace(" ", "").Length, symbolLength);
 			if (previousRow == ReverseString(row))
 			{
 				numCount++;
+				symbolLength = Math.Max(previousRow.Replace(" ", "").Length, symbolLength);
 				return true;
 			}
 

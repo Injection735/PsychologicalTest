@@ -1,4 +1,3 @@
-C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.csprojAssemblyReference.cache
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.csproj.CoreCompileInputs.cache
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\bin\Debug\PsychologicalTest.exe.config
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\bin\Debug\PsychologicalTest.exe
@@ -12,3 +11,4 @@ C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.MainWindow.resources
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.csproj.GenerateResource.cache
 C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.Properties.Resources.resources
+C:\Users\injection735\source\repos\PsychologicalTest\PsychologicalTest\obj\Debug\PsychologicalTest.csprojAssemblyReference.cache

@@ -43,6 +43,7 @@
 			this.mainTextLabel.AutoSize = true;
 			this.mainTextLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.mainTextLabel.Location = new System.Drawing.Point(346, 50);
+			this.mainTextLabel.MaximumSize = new System.Drawing.Size(700, 0);
 			this.mainTextLabel.Name = "mainTextLabel";
 			this.mainTextLabel.Size = new System.Drawing.Size(46, 17);
 			this.mainTextLabel.TabIndex = 0;
@@ -54,9 +55,9 @@
 			this.answersGroup.Controls.Add(this.radioButton3);
 			this.answersGroup.Controls.Add(this.radioButton2);
 			this.answersGroup.Controls.Add(this.radioButton1);
-			this.answersGroup.Location = new System.Drawing.Point(279, 173);
+			this.answersGroup.Location = new System.Drawing.Point(105, 70);
 			this.answersGroup.Name = "answersGroup";
-			this.answersGroup.Size = new System.Drawing.Size(200, 100);
+			this.answersGroup.Size = new System.Drawing.Size(570, 203);
 			this.answersGroup.TabIndex = 3;
 			this.answersGroup.TabStop = false;
 			this.answersGroup.Text = "groupBox1";

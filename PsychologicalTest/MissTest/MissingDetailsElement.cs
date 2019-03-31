@@ -12,6 +12,7 @@ namespace PsychologicalTest.MissTest
 	{
 		private PictureBox picture;
 		private Label labelButton;
+		private TestTimer timer;
 
 		private Action next;
 
@@ -20,6 +21,7 @@ namespace PsychologicalTest.MissTest
 			this.next = next;
 			picture = new PictureBox();
 			labelButton = new Label();
+			timer = new TestTimer(OnTimer, 15, 240, y);
 
 			picture.ImageLocation = MissingDetailsTest.GetInfo()[0].url;//"http://psylab.info/images/c/cc/WAIS_-_%D1%81%D1%83%D0%B1%D1%82%D0%B5%D1%81%D1%82_" + "8_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_1.png";
 			picture.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -38,11 +40,12 @@ namespace PsychologicalTest.MissTest
 			labelButton.BackColor = Color.Red;
 
 			labelButton.Click += new System.EventHandler(OnAccept);
-			//acceptButton.
 		}
 
 		public void AddElement()
 		{
+			timer.AddElement();
+
 			Program.mainForm.Controls.Add(labelButton);
 			Program.mainForm.Controls.Add(picture);
 		}
@@ -51,23 +54,32 @@ namespace PsychologicalTest.MissTest
 		{
 			labelButton.Visible = false;
 			picture.Visible = false;
+			timer.Visible = false;
 		}
 
 		public void Load(MissingDetailsElementInfo info)
 		{
+			timer.Start();
+
 			picture.ImageLocation = info.url;
 			labelButton.Location = info.point;
 			labelButton.Size = info.size;
-			//labelButton.Parent = picture;
-			//labelButton.BackColor = Color.FromArgb(0, Color.Black);
+			labelButton.Parent = picture;
+			labelButton.BackColor = Color.FromArgb(0, Color.Black);
 		}
 
 		private void OnAccept(object sender, EventArgs e)
 		{
 			next.Invoke();
+			MissingDetailsTest.rightAnswersCount++;
 		}
 
-		private void OnDenied(object sender, EventArgs e)
+		private void OnDenied(object sender = null, EventArgs e = null)
+		{
+			next.Invoke();
+		}
+
+		private void OnTimer()
 		{
 			next.Invoke();
 		}

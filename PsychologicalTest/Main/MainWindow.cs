@@ -31,6 +31,7 @@ namespace PsychologicalTest
 		private bool isMemoryStarted = false;
 		private bool isEncryptionStarted = false;
 		private bool isMissingDetailsStarted = false;
+		private bool showDescription = true;
 
 		private TestTimer mathTimer;
 		private MemoryTestElement memoryTestElement;
@@ -47,14 +48,15 @@ namespace PsychologicalTest
 
 		private void MainWindow_Load(object sender, EventArgs e)
 		{
-			mainTextLabel.Text = "ppffffppp";
+			mainTextLabel.Text = "";
 			buttonNext.Text = BUTTON_TEXT_START;
 			answersGroup.Visible = false;
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.MissingDetails; //Kettel;
+			iteration = TestIteration.Encryption;//Kettel;
 			AlignElements();
+			//NextIterationKettel();
 		}
 
 		private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,28 +89,43 @@ namespace PsychologicalTest
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			NextIteration();
+		}
+
+		private void NextIteration()
+		{
 			switch (iteration)
 			{
 				case TestIteration.Kettel:
 					NextIterationKettel();
-				break;
+					break;
 				case TestIteration.Mathematical:
 					NextIterationMathematical();
-				break;
+					break;
 				case TestIteration.Memory:
 					NextIterationMemory();
-				break;
+					break;
 				case TestIteration.Encryption:
 					NextIterationEncryption();
-				break;
+					break;
 				case TestIteration.MissingDetails:
 					NextIterationMissingDetails();
-				break;
+					break;
 			}
 		}
 
 		private void NextIterationMissingDetails()
 		{
+			if (showDescription)
+			{
+				mainTextLabel.Visible = true;
+				mainTextLabel.Text = "В следующем задании необоходимо найти логическое несоответствие на картинке(Например: отсутствие рукоятки у отвертки).\nПросто нажмите на область картинки, где вы предполагаете есть несостыковка";
+				showDescription = false;
+				return;
+			}
+
+			mainTextLabel.Visible = false;
+
 			if (!isMissingDetailsStarted)
 			{
 				missingDetailsElement = new MissingDetailsElement(NextIterationMissingDetails, 50, 50);
@@ -116,8 +133,8 @@ namespace PsychologicalTest
 				isMissingDetailsStarted = true;
 				Size = new Size(600, 600);
 				AlignElements();
-
 			}
+
 			var info = MissingDetailsTest.GetNextInfo();
 			
 			if (info != null)
@@ -126,35 +143,90 @@ namespace PsychologicalTest
 
 		private void NextIterationEncryption()
 		{
+			if (showDescription)
+			{
+				mainTextLabel.Visible = true;
+				showDescription = false;
+				mainTextLabel.Text = "В следующем задании необходимо сопоставить каждой цифре в таблице, свой символ.\nЗа 1.5 минуты необходимо сопоставить как можно больше символов";
+				AlignElements();
+
+				int legendCount = 10;
+				int legendWidth = EncryptionLegendElement.WIDTH * legendCount;
+
+				encryptionLegend = new EncryptionLegend(legendWidth, legendCount, (Size.Width - legendWidth) / 2, 80);
+				encryptionLegend.AddElement();
+				Size = new Size(600, 500);
+				AlignElements();
+				return;
+			}
+			
 			if (!isEncryptionStarted)
 			{
-				encryptionLegend = new EncryptionLegend(300, 10, 20, 20);
-				encryptionLegend.AddElement();
-				encryptionContainer = new EncryptionTestContainer(300, 25, 20, 20);
+				int encryptionCount = 100;
+				int encryptionWidth = 500;
+
+				encryptionContainer = new EncryptionTestContainer(OnEncryptionOver, encryptionWidth, encryptionCount, (Size.Width - encryptionWidth) / 2, 160);
 				encryptionContainer.AddElement();
+
 				isEncryptionStarted = true;
 			}
 		}
 
+		private void OnEncryptionOver()
+		{
+			HideEncryption();
+			IncreaseIterator();
+		}
+
 		private void NextIterationMemory()
 		{
+			if (showDescription)
+			{
+				mainTextLabel.Visible = true;
+				showDescription = false;
+				mainTextLabel.Text = "Следующее задание - проверка на память.\nСначала вам будет дано 3 секунды для того чтобы запомнить ряд цифр. А затем нужно ввести ряд обратный изначальному(цифры пишутся через пробел).\nПример: ряд (8 9 4 3)\nОтвет: (3 4 9 8)";
+				AlignElements();	
+				return;
+			}
+
+			mainTextLabel.Visible = false;
+
 			if (!isMemoryStarted)
 			{
 				memoryTestElement = new MemoryTestElement(100, 100);
 				memoryTestElement.AddElement();
 				isMemoryStarted = true;
 				memoryTestElement.NextElementIteration();
+				memoryTestElement.AlignByX(Size.Width);
 				return;
 			}
+
+			if (!memoryTestElement.isAnswering)
+				return;
 
 			if (MemoryTest.CanBeContinued(memoryTestElement.GetAnswer()))
 				memoryTestElement.NextElementIteration();
 			else 
+			{
+				mainTextLabel.Visible = false;
 				IncreaseIterator();
+			}
 		}
 
 		private void NextIterationMathematical()
 		{
+			if (showDescription)
+			{
+				mainTextLabel.Visible = true;
+				mainTextLabel.Text = "Следующие вопросы являются математическими задачами\nЗа отведенное время вам нужно решить как можно больше задач\nПо истечении времени программа перейдет к следующему тесту\nПример:\nСначала Васе дали 3 копейки, а потом 1 рубль. Сколько у Васи осталось денег?(в рублях)\nОтвет: 1.03 или 1,03";
+
+				showDescription = false;
+				AlignElements();
+				return;
+			}
+
+			mainTextLabel.Visible = false;
+
 			if (!isMathStarted)
 			{
 				int x = 20;
@@ -181,20 +253,17 @@ namespace PsychologicalTest
 				foreach(TestControlElement element in MathematicalTest.visualElements)
 					MathematicalTest.answers.Add(element.GetCurrentAnswer());
 				
-				ClearMath();
 				IncreaseIterator();
 			}
 		}
 
-		private void ClearMath()
+		private void IncreaseIterator()
 		{
-			mathTimer.Hide();
-
-			foreach (TestControlElement element in MathematicalTest.visualElements)
-				element.Hide();
+			showDescription = true;
+			HideCurrent();
+			iteration = (TestIteration) ((int) iteration + 1);
+			NextIteration();
 		}
-
-		private void IncreaseIterator() => iteration = (TestIteration) ((int) iteration + 1);
 
 		private void NextIterationKettel()
 		{
@@ -204,6 +273,18 @@ namespace PsychologicalTest
 
 				if (!isSuccess)
 					return;
+			}
+
+			if (showDescription)
+			{
+				mainTextLabel.Text = "Вам предлагается ответить на ряд вопросов, цель которых – выяснить ваши когнитивные навыки" + 
+				"\n\n	1. Не нужно тратить много времени на обдумывание ответов.\nДавайте тот ответ, который первым придет Вам в голову.\nКонечно, вопросы часто будут сформулированы не так подробно, как Вам хотелось бы.\nВ таком случае старайтесь представить себе «среднюю»,\nнаиболее частую ситуацию, которая соответствует смыслу вопроса и, исходя из этого, выбирайте ответ.\nОтвечать надо как можно точнее, но не слишком медленно." + 
+				"\n\n	2. Старайтесь не прибегать к промежуточным, неопределенным ответам\n(типа «не знаю», «нечто среднее» и т.п.) слишком часто." + 
+				"\n\n	3. Некоторые вопросы могут показаться Вам личными,\nно Вы можете быть уверены в том, что ответы не будут разглашены.\nПричем ответы на каждый отдельный вопрос вообще не будут рассматриваться:\nнас интересуют только обобщенные показатели." + 
+				"\n\n	4. Не старайтесь произвести хорошее впечатление своими ответами, они должны соответствовать действительности.\nЗаранее благодарим Вас за помощь в отработке методики.";
+				showDescription = false;
+				AlignElements();
+				return;
 			}
 
 			isKettelStarted = true;
@@ -247,17 +328,64 @@ namespace PsychologicalTest
 			buttonNext.Location = new Point((Size.Width - buttonNext.Width) / 2, Size.Height - 70);
 		}
 
+		private void HideCurrent()
+		{
+			switch (iteration)
+			{
+				case TestIteration.Kettel:
+					HideKettel();
+					break;
+				case TestIteration.Mathematical:
+					HideMathematical();
+					break;
+				case TestIteration.Memory:
+					HideMemory();
+					break;
+				case TestIteration.Encryption:
+					HideEncryption();
+					break;
+				case TestIteration.MissingDetails:
+					HideMissingDetails();
+					break;
+			}
+		}
+
+		private void HideKettel()
+		{
+			answersGroup.Visible = false;
+		}
+
+		private void HideMathematical()
+		{
+			mathTimer.Hide();
+
+			foreach (TestControlElement element in MathematicalTest.visualElements)
+				element.Hide();
+		}
+
+		private void HideMemory()
+		{
+			memoryTestElement.Hide();
+		}
+
+		private void HideEncryption()
+		{
+			encryptionLegend.Hide();
+			encryptionContainer.Hide();
+		}
+
+		private void HideMissingDetails()
+		{
+			missingDetailsElement.Hide();
+		}
+
 		private void label2_Click(object sender, EventArgs e)
 		{ }
 
 		private void progressBar1_Click(object sender, EventArgs e)
-		{
-
-		}
+		{ }
 
 		private void richTextBox1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
+		{ }
 	}
 }

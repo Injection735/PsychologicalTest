@@ -9,6 +9,8 @@ namespace PsychologicalTest.MissTest
 {
 	class MissingDetailsTest
 	{
+		public static int rightAnswersCount = 0;
+
 		private static List<MissingDetailsElementInfo> urls = null;
 
 		private static int currentIterator = 0;

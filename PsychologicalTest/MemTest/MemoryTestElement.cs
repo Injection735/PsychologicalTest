@@ -9,20 +9,17 @@ namespace PsychologicalTest.MemTest
 {
 	class MemoryTestElement : IGraphicElement
 	{
-		private static int labelCounter = 1;
-
 		private Label label;
 		private TestTimer timer;
 		private RichTextBox textBox;
 
-		private bool isAnswering = false;
+		public bool isAnswering = true;
 
 		public MemoryTestElement(int x, int y)
 		{
 			label = new Label();
 			label.AutoSize = true;
 			label.Location = new System.Drawing.Point(x, y);
-			label.Name = "MemoryTestElementLabel" + labelCounter;
 			label.TabIndex = 0;
 			label.Text = "";
 
@@ -30,14 +27,22 @@ namespace PsychologicalTest.MemTest
 
 			textBox = new RichTextBox();
 			textBox.Multiline = false;
-			textBox.Size = new System.Drawing.Size(46, 17);
-			textBox.Name = "MemoryTestElementTextBox" + labelCounter;
-			textBox.Location = new System.Drawing.Point(label.Location.X + label.Size.Width, y);
+			textBox.Size = new System.Drawing.Size(90, 17);
 			textBox.Visible = false;
+		}
+
+		public void AlignByX(int parentWidth)
+		{
+			label.Location = new System.Drawing.Point((parentWidth - label.Size.Width) / 2, label.Location.Y);
+			textBox.Location = new System.Drawing.Point((parentWidth - textBox.Size.Width) / 2, label.Location.Y);
+			timer.x = (parentWidth - timer.width) / 2;
 		}
 
 		public void NextElementIteration()
 		{
+			isAnswering = !isAnswering;
+
+			timer.Stop();
 			if (!isAnswering)
 			{
 				label.Text = MemoryTest.GetRow();
@@ -50,7 +55,6 @@ namespace PsychologicalTest.MemTest
 			textBox.Visible = isAnswering;
 			label.Visible = !isAnswering;
 			timer.Visible = !isAnswering;
-			isAnswering = !isAnswering;
 		}
 
 		public void AddElement()

@@ -38,6 +38,17 @@ namespace PsychologicalTest
 			Update(null, null);
 		}
 
+		public int x
+		{
+			get => timerLabel.Location.X;
+			set => timerLabel.Location = new System.Drawing.Point(value, timerLabel.Location.Y);
+		}
+
+		public int width
+		{
+			get => timerLabel.Size.Width;
+		}
+
 		public void Start()
 		{
 			currentSeconds = 0;

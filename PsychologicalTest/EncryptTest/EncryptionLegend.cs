@@ -34,7 +34,7 @@ namespace PsychologicalTest.EncryptTest
 				
 				currentX += EncryptionTestElement.WIDTH;
 
-				if (currentX > maxWidth)
+				if (currentX > maxWidth + startX)
 				{
 					currentX = startX;
 					currentY += EncryptionTestElement.HEIGHT + 20;
