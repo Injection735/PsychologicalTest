@@ -35,6 +35,11 @@ namespace PsychologicalTest
 		private TestTimer mathTimer;
 		private MemoryTestElement memoryTestElement;
 
+		private EncryptionLegend encryptionLegend;
+		private EncryptionTestContainer encryptionContainer;
+
+		private MissingDetailsElement missingDetailsElement;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -48,10 +53,8 @@ namespace PsychologicalTest
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.Encryption; //Kettel;
+			iteration = TestIteration.MissingDetails; //Kettel;
 			AlignElements();
-			MissingDetailsElement el = new MissingDetailsElement();
-			el.AddElement();
 		}
 
 		private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,19 +102,35 @@ namespace PsychologicalTest
 					NextIterationEncryption();
 				break;
 				case TestIteration.MissingDetails:
-					
+					NextIterationMissingDetails();
 				break;
 			}
+		}
+
+		private void NextIterationMissingDetails()
+		{
+			if (!isMissingDetailsStarted)
+			{
+				missingDetailsElement = new MissingDetailsElement(NextIterationMissingDetails, 50, 50);
+				missingDetailsElement.AddElement();
+				isMissingDetailsStarted = true;
+				Size = new Size(600, 600);
+			}
+			var info = MissingDetailsTest.GetNextInfo();
+			
+			if (info != null)
+				missingDetailsElement.Load(info);
 		}
 
 		private void NextIterationEncryption()
 		{
 			if (!isEncryptionStarted)
 			{
-				EncryptionLegend legend = new EncryptionLegend(300, 10, 20, 20);
-				legend.AddElement();
-				//EncryptionTestContainer container = new EncryptionTestContainer(300, 25, 20, 20);
-				//container.AddElement();
+				encryptionLegend = new EncryptionLegend(300, 10, 20, 20);
+				encryptionLegend.AddElement();
+				encryptionContainer = new EncryptionTestContainer(300, 25, 20, 20);
+				encryptionContainer.AddElement();
+				isEncryptionStarted = true;
 			}
 		}
 
