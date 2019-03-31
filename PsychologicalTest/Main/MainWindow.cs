@@ -115,6 +115,8 @@ namespace PsychologicalTest
 				missingDetailsElement.AddElement();
 				isMissingDetailsStarted = true;
 				Size = new Size(600, 600);
+				AlignElements();
+
 			}
 			var info = MissingDetailsTest.GetNextInfo();
 			
