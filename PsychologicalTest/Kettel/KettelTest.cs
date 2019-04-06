@@ -133,6 +133,11 @@ namespace PsychologicalTest
 			}
 		}
 
+		public static int GetAnswer(Type type)
+		{
+			return result.GetValue(type);
+		}
+
 		public static int GetPoints(Type type, int points)
 		{
 			List<Pair> pairList = pointsDictionary[type];

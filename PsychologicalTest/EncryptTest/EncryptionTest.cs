@@ -8,7 +8,7 @@ namespace PsychologicalTest.EncryptTest
 {
 	class EncryptionTest
 	{
-		public static List<bool> answers = new List<bool>();
+		public static int answersCount = 0;
 
 		private static Dictionary<int, char> legend;
 

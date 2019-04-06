@@ -30,6 +30,23 @@ namespace PsychologicalTest
 		public static List<TestControlElement> visualElements = new List<TestControlElement>();
 
 		public static List<double> answers = new List<double>();
+
+		public static int bonusTime = 0;
+
+		public static int GetAnswer()
+		{
+			int count = 0;
+
+			for (int i = 0; i < questions.Count; i++)
+				count += questions[i].answer == answers[i] ? 1 : 0;
+		
+			return count;
+		}
+
+		public static int GetBonusTime()
+		{
+			return bonusTime;
+		}
 	}
 
 	struct MathTestQuestion

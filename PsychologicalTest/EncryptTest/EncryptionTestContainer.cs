@@ -64,7 +64,7 @@ namespace PsychologicalTest.EncryptTest
 			var legend = EncryptionTest.GetLegend();
 
 			foreach (EncryptionTestElement element in elements)
-				EncryptionTest.answers.Add(legend[element.GetInfo()] == element.GetValue());
+				EncryptionTest.answersCount += legend[element.GetInfo()] == element.GetValue() ? 1 : 0;
 		}
 	}
 }

@@ -17,11 +17,13 @@ namespace PsychologicalTest
 
 		private enum TestIteration
 		{
+			Login,
 			Kettel,
 			Mathematical,
 			Memory,
 			Encryption,
-			MissingDetails
+			MissingDetails,
+			Result
 		}
 
 		private TestIteration iteration;
@@ -54,8 +56,10 @@ namespace PsychologicalTest
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.Encryption;//Kettel;
+			iteration = TestIteration.MissingDetails;//Kettel;
 			AlignElements();
+			var a = new SQLData();
+
 			//NextIterationKettel();
 		}
 
@@ -96,6 +100,9 @@ namespace PsychologicalTest
 		{
 			switch (iteration)
 			{
+				case TestIteration.Login:
+					Login();
+					break;
 				case TestIteration.Kettel:
 					NextIterationKettel();
 					break;
@@ -111,7 +118,22 @@ namespace PsychologicalTest
 				case TestIteration.MissingDetails:
 					NextIterationMissingDetails();
 					break;
+				case TestIteration.Result:
+					Result();
+					break;
 			}
+		}
+
+		private void Result()
+		{
+			ResultView view = new ResultView();
+			view.AddElement();
+			missingDetailsElement.Hide();
+		}
+
+		private void Login()
+		{
+			
 		}
 
 		private void NextIterationMissingDetails()
@@ -139,6 +161,8 @@ namespace PsychologicalTest
 			
 			if (info != null)
 				missingDetailsElement.Load(info);
+			else
+				IncreaseIterator();
 		}
 
 		private void NextIterationEncryption()

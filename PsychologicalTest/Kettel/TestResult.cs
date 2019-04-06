@@ -36,14 +36,17 @@ namespace PsychologicalTest
 			pointsDictionary = new Dictionary<KettelTest.Type, int>();
 			
 			foreach (KettelTest.Type type in Enum.GetValues(typeof(KettelTest.Type)))
-			{
 				pointsDictionary.Add(type, 0);
-			}
 		}
 
 		public void AddValue(KettelTest.Type type, int points)
 		{
 			pointsDictionary[type] += points;
+		}
+
+		public int GetValue(KettelTest.Type type)
+		{
+			return pointsDictionary[type];
 		}
 
 		public string GetResult()
