@@ -39,31 +39,16 @@ namespace PsychologicalTest
 
 		private static List<Type> deniedTypes = new List<Type>()
 		{
-			//Type.MD,
-			//Type.A,
-			//Type.C,
-			//Type.E,
-			//Type.G,
-			//Type.H,
-			//Type.I,
-			//Type.L,
-			//Type.F
 			Type.A,
-			Type.B,
 			Type.C,
 			Type.E,
 			Type.F,
 			Type.G,
 			Type.H,
 			Type.I,
-			Type.L,
 			Type.M,
 			Type.N,
 			Type.O,
-			Type.Q1,
-			Type.Q2,
-			Type.Q3,
-			Type.Q4,
 			Type.MD
 		};
 

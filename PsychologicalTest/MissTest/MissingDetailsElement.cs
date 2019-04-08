@@ -31,7 +31,7 @@ namespace PsychologicalTest.MissTest
 			picture.TabStop = false;
 			picture.Click += new System.EventHandler(OnDenied);
 
-			labelButton.Location = new System.Drawing.Point(334, 337);
+			labelButton.Location = new System.Drawing.Point(334 - x, 337 + y);
 			labelButton.Size = new System.Drawing.Size(30, 30);
 			labelButton.TabIndex = 4;
 			labelButton.Text = "";
@@ -62,10 +62,10 @@ namespace PsychologicalTest.MissTest
 			timer.Start();
 
 			picture.ImageLocation = info.url;
-			labelButton.Location = info.point;
+			labelButton.Location = new Point(info.point.X - 50, info.point.Y - 50);
 			labelButton.Size = info.size;
 			labelButton.Parent = picture;
-			labelButton.BackColor = Color.FromArgb(0, Color.Black);
+			labelButton.BackColor = Color.Transparent;
 		}
 
 		private void OnAccept(object sender, EventArgs e)

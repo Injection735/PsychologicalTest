@@ -29,7 +29,7 @@ namespace PsychologicalTest.EncryptTest
 
 			startX = x;
 
-			timer = new TestTimer(onNext, 5, 0, y - 20);
+			timer = new TestTimer(onNext, 90, 0, y - 20);
 		}
 
 		public void AddElement()

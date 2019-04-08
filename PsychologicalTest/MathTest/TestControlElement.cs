@@ -47,7 +47,7 @@ namespace PsychologicalTest.MathTest
 				return -1;
 			
 			string text = textBox.Text.Replace('.', ',');
-			double result = Convert.ToDouble(textBox.Text);
+			double result = Convert.ToDouble(text);
 			
 			return result;
 		}

@@ -42,9 +42,7 @@ namespace PsychologicalTest.EncryptTest
 				chars = new List<char>();
 
 				for (int i = 97; i < 123; i++)
-				{ 
 					chars.Add((char) i);
-				}
 
 				Shuffle(chars);
 			}

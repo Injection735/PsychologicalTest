@@ -13,7 +13,7 @@ namespace PsychologicalTest
 	class ResultView : IGraphicElement
 	{
 		private const int LABEL_COUNT = 6;
-		private List<Label> labelList;
+		private List<Label> labelList = new List<Label>();
 
 		private Label userNameLabel;
 		private Label kettelLabel;
@@ -24,6 +24,13 @@ namespace PsychologicalTest
 
 		public ResultView()
 		{
+			userNameLabel = new Label();
+			userNameLabel.AutoSize = true;
+			userNameLabel.Text = "Спасибо за уделенное время!";
+			userNameLabel.TabIndex = 0;
+			Program.mainForm.Controls.Add(userNameLabel);
+			userNameLabel.Location = new System.Drawing.Point((Program.mainForm.Size.Width - userNameLabel.Size.Width) / 2, 50);
+
 			userNameLabel = new Label();
 			kettelLabel = new Label();
 			mathLabel = new Label();
@@ -41,7 +48,7 @@ namespace PsychologicalTest
 				missLabel
 			};
 
-			int x = 0, y = 0;
+			int x = 0, y = 70;
 
 			for (int i = 0; i < LABEL_COUNT; i++)
 			{
@@ -51,17 +58,17 @@ namespace PsychologicalTest
 				y += 30;
 			}
 
-			userNameLabel.Text = "ff";
-			kettelLabel.Text = 
-			KettelTest.Type.B.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.B) + "\n" +
-			KettelTest.Type.Q1.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q1) + "\n" +
-			KettelTest.Type.Q3.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q3) + "\n" +
-			KettelTest.Type.Q4.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q4);
+			userNameLabel.Text = SQLData.user_name;
+			//kettelLabel.Text = 
+			//KettelTest.Type.B.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.B) + "\n" +
+			//KettelTest.Type.Q1.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q1) + "\n" +
+			//KettelTest.Type.Q3.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q3) + "\n" +
+			//KettelTest.Type.Q4.ToString() + " " + KettelTest.GetAnswer(KettelTest.Type.Q4);
 
-			mathLabel.Text = MathematicalTest.GetAnswer() + " : " + MathematicalTest.GetBonusTime();
-			memoryLabel.Text = MemoryTest.GetAnswer();
-			encryptionLabel.Text = EncryptionTest.answersCount.ToString();
-			missLabel.Text = MissingDetailsTest.GetAnswer();
+			mathLabel.Text = "Результат по арифметической части " + MathematicalTest.GetAnswer() + "/" + MathematicalTest.questions.Count + " бонусное время : " + MathematicalTest.GetBonusTime();
+			memoryLabel.Text = "Результат по тесту \"Ряды\"" + MemoryTest.GetAnswer().ToString() + " запомненых цифр";
+			encryptionLabel.Text = "Результат по тесту \"Шифрование\"" + EncryptionTest.answersCount.ToString() + " правильных расшифровок";
+			missLabel.Text = "Результат по тесту \"Недостащие детали\"" + MissingDetailsTest.GetAnswer().ToString() + "/" + MissingDetailsTest.GetInfo().Count;
 			AlignX();
 		}
 

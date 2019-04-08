@@ -53,7 +53,7 @@ namespace PsychologicalTest.MissTest
 			return null;
 		}
 
-		public static string GetAnswer() => rightAnswersCount.ToString();
+		public static int GetAnswer() => rightAnswersCount;
 	}
 
 	class MissingDetailsElementInfo

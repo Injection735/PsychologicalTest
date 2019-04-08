@@ -12,7 +12,7 @@ namespace PsychologicalTest
 		public static void CreateKettelJson()
 		{
 			string[] text = File.ReadAllLines("Questions.tabf");
-			string[] answers = File.ReadAllLines("answers.tabf");
+			string[] answers = File.ReadAllLines("Answers.tabf");
 
 			KettelTest.answersPoints = new Dictionary<int, AnswerPoints>();
 			int currentAnswer = 0;
@@ -87,11 +87,6 @@ namespace PsychologicalTest
 
 			json += "]}";
 			File.WriteAllText("Questions.json", json);
-		}
-
-		public static void CreateMathematicalJson()
-		{
-			string[] text = File.ReadAllLines("Questions.tabf");
 		}
 	}
 }

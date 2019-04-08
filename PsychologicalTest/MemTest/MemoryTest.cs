@@ -45,7 +45,7 @@ namespace PsychologicalTest.MemTest
 			return tryCount > 0;
 		}
 
-		public static string GetAnswer() => symbolLength.ToString();
+		public static int GetAnswer() => symbolLength;
 
 		private static string ReverseString(string s)
 		{

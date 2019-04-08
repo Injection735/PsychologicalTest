@@ -27,12 +27,14 @@ namespace PsychologicalTest
 		}
 
 		private TestIteration iteration;
-
+		
+		private bool isLoginStarted = false;
 		private bool isKettelStarted = false;
 		private bool isMathStarted = false;
 		private bool isMemoryStarted = false;
 		private bool isEncryptionStarted = false;
 		private bool isMissingDetailsStarted = false;
+		private bool isEnded = false;
 		private bool showDescription = true;
 
 		private TestTimer mathTimer;
@@ -43,6 +45,12 @@ namespace PsychologicalTest
 
 		private MissingDetailsElement missingDetailsElement;
 
+		private Label loginLabel;
+		private TextBox loginTextBox;
+
+		private Timer kettelTimer;
+		private Timer missTimer;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -51,16 +59,15 @@ namespace PsychologicalTest
 		private void MainWindow_Load(object sender, EventArgs e)
 		{
 			mainTextLabel.Text = "";
-			buttonNext.Text = BUTTON_TEXT_START;
+			buttonNext.Text = BUTTON_TEXT_CONTINUE;
 			answersGroup.Visible = false;
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.MissingDetails;//Kettel;
+			iteration = TestIteration.Login;
 			AlignElements();
-			var a = new SQLData();
 
-			//NextIterationKettel();
+			NextIteration();
 		}
 
 		private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,7 +83,7 @@ namespace PsychologicalTest
 			{ 
 				index = answersGroup.Controls.IndexOf(answersGroup.Controls.OfType<RadioButton>().First(n => n.Checked));
 			}
-			catch (InvalidOperationException e) 
+			catch (InvalidOperationException) 
 			{
 				errorLabel.Visible = true;
 				return false;
@@ -126,14 +133,53 @@ namespace PsychologicalTest
 
 		private void Result()
 		{
+			if (isEnded)
+			{	
+				Close();
+				return;
+			}
+
+			isEnded = true;
+
+			SQLData.Q1 = KettelTest.GetAnswer(KettelTest.Type.Q1);
+			SQLData.B = KettelTest.GetAnswer(KettelTest.Type.B);
+			SQLData.Q3 = KettelTest.GetAnswer(KettelTest.Type.Q3);
+			SQLData.Q4 = KettelTest.GetAnswer(KettelTest.Type.Q4);
+			SQLData.math_result = MathematicalTest.GetAnswer();
+			SQLData.math_time = MathematicalTest.GetBonusTime();
+			SQLData.memory_count = MemoryTest.GetAnswer();
+			SQLData.encryption_count = EncryptionTest.answersCount;
+			SQLData.miss_count = MissingDetailsTest.GetAnswer();
+			
+			new SQLData();
+
 			ResultView view = new ResultView();
 			view.AddElement();
-			missingDetailsElement.Hide();
+			view.AlignX();
+			missingDetailsElement?.Hide();
 		}
 
 		private void Login()
 		{
-			
+			if (!isLoginStarted)
+			{ 
+				loginLabel = new Label();
+				loginLabel.Text = "Введите свое ФИО и группу (Иванов И.И. КЭ-100)";
+				loginLabel.AutoSize = true;
+				Controls.Add(loginLabel);
+				loginLabel.Location = new Point((Size.Width - loginLabel.Width) / 2, 40);
+
+				loginTextBox = new TextBox();
+				Controls.Add(loginTextBox);
+				loginTextBox.Size = new Size(180, 17);
+				loginTextBox.Location = new Point((Size.Width - loginTextBox.Width) / 2, 80);
+				isLoginStarted = true;
+			}
+			else
+			{
+				SQLData.user_name = loginTextBox.Text;
+				IncreaseIterator();
+			}
 		}
 
 		private void NextIterationMissingDetails()
@@ -150,6 +196,12 @@ namespace PsychologicalTest
 
 			if (!isMissingDetailsStarted)
 			{
+				missTimer = new Timer();
+				missTimer.Tick += onMissTimer;
+				missTimer.Enabled = true;
+				missTimer.Interval = 1000;
+				missTimer.Start();
+
 				missingDetailsElement = new MissingDetailsElement(NextIterationMissingDetails, 50, 50);
 				missingDetailsElement.AddElement();
 				isMissingDetailsStarted = true;
@@ -162,13 +214,17 @@ namespace PsychologicalTest
 			if (info != null)
 				missingDetailsElement.Load(info);
 			else
+			{
+				missTimer.Stop();
 				IncreaseIterator();
+			}
 		}
 
 		private void NextIterationEncryption()
 		{
 			if (showDescription)
 			{
+				Size = new Size(600, 500);
 				mainTextLabel.Visible = true;
 				showDescription = false;
 				mainTextLabel.Text = "В следующем задании необходимо сопоставить каждой цифре в таблице, свой символ.\nЗа 1.5 минуты необходимо сопоставить как можно больше символов";
@@ -179,7 +235,6 @@ namespace PsychologicalTest
 
 				encryptionLegend = new EncryptionLegend(legendWidth, legendCount, (Size.Width - legendWidth) / 2, 80);
 				encryptionLegend.AddElement();
-				Size = new Size(600, 500);
 				AlignElements();
 				return;
 			}
@@ -198,6 +253,7 @@ namespace PsychologicalTest
 
 		private void OnEncryptionOver()
 		{
+			encryptionContainer.AcceptAnswers();
 			HideEncryption();
 			IncreaseIterator();
 		}
@@ -291,6 +347,9 @@ namespace PsychologicalTest
 
 		private void NextIterationKettel()
 		{
+			loginLabel.Visible = false;
+			loginTextBox.Visible = false;
+
 			if (isKettelStarted)
 			{
 				bool isSuccess = AddResult();
@@ -311,6 +370,15 @@ namespace PsychologicalTest
 				return;
 			}
 
+			if (!isKettelStarted)
+			{ 
+				kettelTimer = new Timer();
+				kettelTimer.Tick += onKettelTimer;
+				kettelTimer.Enabled = true;
+				kettelTimer.Interval = 1000;
+				kettelTimer.Start();
+			}
+
 			isKettelStarted = true;
 
 			if (buttonNext.Text == BUTTON_TEXT_START)
@@ -322,6 +390,7 @@ namespace PsychologicalTest
 			
 			if (question == null)
 			{
+				kettelTimer.Stop();
 				IncreaseIterator();
 				return;
 			}
@@ -343,6 +412,16 @@ namespace PsychologicalTest
 
 			errorLabel.Visible = false;
 			AlignElements();
+		}
+
+		private void onKettelTimer(object sender, EventArgs e)
+		{
+			SQLData.kettel_time++;
+		}
+
+		private void onMissTimer(object sender, EventArgs e)
+		{
+			SQLData.miss_time++;
 		}
 
 		private void AlignElements()
