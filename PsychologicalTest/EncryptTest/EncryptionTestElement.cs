@@ -63,6 +63,12 @@ namespace PsychologicalTest.EncryptTest
 
 		public int GetInfo() => int.Parse(label.Text);
 
-		public char GetValue() => label.Text[label.Text.Length - 1];
+		public char GetValue() 
+		{
+			if (textBox.Text != "")
+				return textBox.Text[textBox.Text.Length - 1];
+			else
+				return ' ';
+		}
 	}
 }
