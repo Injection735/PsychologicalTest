@@ -5,6 +5,7 @@ using PsychologicalTest.MissTest;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PsychologicalTest
@@ -64,7 +65,7 @@ namespace PsychologicalTest
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.Login;
+			iteration = TestIteration.Login; //Login
 			AlignElements();
 
 			NextIteration();
@@ -150,8 +151,9 @@ namespace PsychologicalTest
 			SQLData.memory_count = MemoryTest.GetAnswer();
 			SQLData.encryption_count = EncryptionTest.answersCount;
 			SQLData.miss_count = MissingDetailsTest.GetAnswer();
-			
-			new SQLData();
+
+			SQLScripts.SetAnswers();
+			SQLScripts.RemoveUser();
 
 			ResultView view = new ResultView();
 			view.AddElement();
@@ -162,9 +164,9 @@ namespace PsychologicalTest
 		private void Login()
 		{
 			if (!isLoginStarted)
-			{ 
+			{
 				loginLabel = new Label();
-				loginLabel.Text = "Введите свое ФИО и группу (Иванов И.И. КЭ-100)";
+				loginLabel.Text = "Введите свое ФИО (Иванов ИИ)";
 				loginLabel.AutoSize = true;
 				Controls.Add(loginLabel);
 				loginLabel.Location = new Point((Size.Width - loginLabel.Width) / 2, 40);
@@ -177,8 +179,19 @@ namespace PsychologicalTest
 			}
 			else
 			{
-				SQLData.user_name = loginTextBox.Text;
-				IncreaseIterator();
+				if (SQLScripts.VerifyUser(loginTextBox.Text.ToLower()))
+				{
+					errorLabel.Visible = false;
+
+					SQLData.user_name = loginTextBox.Text;
+					IncreaseIterator();
+				}
+				else
+				{
+					errorLabel.Visible = true;
+					errorLabel.Text = "Такого пользователя не существует!";
+					errorLabel.Location = new Point((Size.Width - errorLabel.Size.Width) / 2, errorLabel.Location.Y);
+				}
 			}
 		}
 
