@@ -42,5 +42,10 @@ namespace PsychologicalTest.EncryptTest
 			labelInfo.Visible= false;
 			labelAnswer.Visible= false;
 		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

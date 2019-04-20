@@ -14,7 +14,7 @@ namespace PsychologicalTest.EncryptTest
 		int startX;
 		private int maxWidth;
 		private int count;
-
+		
 		public EncryptionLegend(int maxWidth, int count, int x, int y)
 		{
 			elements = new List<EncryptionLegendElement>();
@@ -52,6 +52,11 @@ namespace PsychologicalTest.EncryptTest
 		{
 			foreach (EncryptionLegendElement element in elements)
 				element.Hide();
+		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

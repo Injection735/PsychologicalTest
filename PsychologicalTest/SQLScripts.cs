@@ -61,7 +61,7 @@ namespace PsychologicalTest
 			{
 				NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 				
-				command.Parameters.Add(new NpgsqlParameter("@user", PrepareUserName(text[i].ToLower())));
+				command.Parameters.Add(new NpgsqlParameter("@user", PrepareUserName(text[i])));
 				command.ExecuteScalar();
 			}
 
@@ -73,7 +73,27 @@ namespace PsychologicalTest
 			string result = name;
 			result = result.Replace(".", "");
 			result = result.Replace(" ", "");
-			return result.ToLower();
+			MD5 md5Hash = MD5.Create();
+			result = GetMd5Hash(md5Hash, result.ToLower());
+			return result;
+		}
+
+		public static string GetMd5Hash(MD5 md5Hash, string input)
+		{
+			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+			StringBuilder sBuilder = new StringBuilder();
+			for (int i = 0; i < data.Length; i++)
+				sBuilder.Append(data[i].ToString("x2"));
+
+			return sBuilder.ToString();
+		}
+
+		public static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+		{
+			string hashOfInput = GetMd5Hash(md5Hash, input);
+			StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+			return comparer.Compare(hashOfInput, hash) == 0;
 		}
 
 		public static bool VerifyUser(string user)

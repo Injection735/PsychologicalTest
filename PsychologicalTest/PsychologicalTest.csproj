@@ -101,7 +101,7 @@
     <Compile Include="MathTest\MathematicalTest.cs" />
     <Compile Include="Kettel\Pair.cs" />
     <Compile Include="Main\Program.cs" />
-    <Compile Include="MathTest\TestControlElement.cs" />
+    <Compile Include="MathTest\MathControlElement.cs" />
     <Compile Include="MemTest\MemoryTest.cs" />
     <Compile Include="MemTest\MemoryTestElement.cs" />
     <Compile Include="MissTest\MissingDetailsElement.cs" />

@@ -72,5 +72,10 @@ namespace PsychologicalTest.MemTest
 		}
 
 		public string GetAnswer() => textBox.Text;
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace PsychologicalTest.MissTest
 			picture.TabIndex = 6;
 			picture.TabStop = false;
 			picture.Click += new System.EventHandler(OnDenied);
+			picture.LoadCompleted += LoadComplete; 
 
 			labelButton.Location = new System.Drawing.Point(334 - x, 337 + y);
 			labelButton.Size = new System.Drawing.Size(30, 30);
@@ -41,6 +43,9 @@ namespace PsychologicalTest.MissTest
 
 			labelButton.Click += new System.EventHandler(OnAccept);
 		}
+
+		private void LoadComplete(Object sender, AsyncCompletedEventArgs e) => timer.Start();
+		
 
 		public void AddElement()
 		{
@@ -59,13 +64,16 @@ namespace PsychologicalTest.MissTest
 
 		public void Load(MissingDetailsElementInfo info)
 		{
-			timer.Start();
-
 			picture.ImageLocation = info.url;
 			labelButton.Location = new Point(info.point.X - 50, info.point.Y - 50);
 			labelButton.Size = info.size;
 			labelButton.Parent = picture;
 			labelButton.BackColor = Color.Transparent;
+		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
 		}
 
 		private void OnAccept(object sender, EventArgs e)

@@ -89,5 +89,10 @@ namespace PsychologicalTest
 			foreach (Label label in labelList)
 				label.Visible = false;
 		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

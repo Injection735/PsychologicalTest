@@ -66,5 +66,10 @@ namespace PsychologicalTest.EncryptTest
 			foreach (EncryptionTestElement element in elements)
 				EncryptionTest.answersCount += legend[element.GetInfo()] == element.GetValue() ? 1 : 0;
 		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

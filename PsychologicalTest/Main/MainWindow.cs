@@ -249,7 +249,7 @@ namespace PsychologicalTest
 				encryptionLegend = new EncryptionLegend(legendWidth, legendCount, (Size.Width - legendWidth) / 2, 80);
 				encryptionLegend.AddElement();
 				AlignElements();
-				return;
+				return; 
 			}
 			
 			if (!isEncryptionStarted)
@@ -331,7 +331,7 @@ namespace PsychologicalTest
 
 				foreach(MathTestQuestion question in MathematicalTest.questions)
 				{
-					TestControlElement element = new TestControlElement(question.description, question.answer, x, y);
+					MathControlElement element = new MathControlElement(question.description, question.answer, x, y);
 					MathematicalTest.visualElements.Add(element);
 					element.AddElement();
 					y += element.height + 20;
@@ -343,7 +343,7 @@ namespace PsychologicalTest
 			}
 			else
 			{
-				foreach(TestControlElement element in MathematicalTest.visualElements)
+				foreach(MathControlElement element in MathematicalTest.visualElements)
 					MathematicalTest.answers.Add(element.GetCurrentAnswer());
 				
 				IncreaseIterator();
@@ -475,7 +475,7 @@ namespace PsychologicalTest
 		{
 			mathTimer.Hide();
 
-			foreach (TestControlElement element in MathematicalTest.visualElements)
+			foreach (MathControlElement element in MathematicalTest.visualElements)
 				element.Hide();
 		}
 

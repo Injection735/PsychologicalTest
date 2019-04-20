@@ -10,5 +10,6 @@ namespace PsychologicalTest
 	{
 		void AddElement();
 		void Hide();
+		void Remove();
 	}
 }

@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace PsychologicalTest.MathTest
 {
-	class TestControlElement : IGraphicElement
+	class MathControlElement : IGraphicElement
 	{
 		private static Random random = new Random();
 
 		private Label label;
 		private RichTextBox textBox;
 
-		public TestControlElement(string text, double answer, int x, int y)
+		public MathControlElement(string text, double answer, int x, int y)
 		{
 			label = new Label();
 			label.AutoSize = true;
@@ -50,6 +50,11 @@ namespace PsychologicalTest.MathTest
 			double result = Convert.ToDouble(text);
 			
 			return result;
+		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
 		}
 
 		public int height => label.Height;

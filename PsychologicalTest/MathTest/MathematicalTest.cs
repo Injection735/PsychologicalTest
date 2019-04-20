@@ -27,7 +27,7 @@ namespace PsychologicalTest
 			new MathTestQuestion("8 человек могут выполнить работу за 6 дней. Сколько нужно людей, чтобы выполнить эту работу за полдня?", 96),
 		};
 		
-		public static List<TestControlElement> visualElements = new List<TestControlElement>();
+		public static List<MathControlElement> visualElements = new List<MathControlElement>();
 
 		public static List<double> answers = new List<double>();
 

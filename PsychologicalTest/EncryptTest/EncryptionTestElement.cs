@@ -70,5 +70,10 @@ namespace PsychologicalTest.EncryptTest
 			else
 				return ' ';
 		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -28,7 +28,6 @@ namespace PsychologicalTest
 			timerLabel = new Label();
 			timerLabel.AutoSize = true;
 			timerLabel.Location = new System.Drawing.Point(x, y);
-			timerLabel.Name = "TimerLabel" + timerCounter;
 			timerLabel.Size = new System.Drawing.Size(46, 17);
 			timerLabel.TabIndex = 0;
 
@@ -103,6 +102,11 @@ namespace PsychologicalTest
 		public void AddElement()
 		{
 			Program.mainForm.Controls.Add(timerLabel);	
+		}
+
+		public void Remove()
+		{
+			throw new NotImplementedException();
 		}
 
 		public bool Visible
