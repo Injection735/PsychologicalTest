@@ -65,7 +65,7 @@ namespace PsychologicalTest
 			answersGroup.Text = "";
 			errorLabel.Visible = false;
 			KettelTest.LoadTest();
-			iteration = TestIteration.Login; //Login
+			iteration = TestIteration.Mathematical; //Login
 			AlignElements();
 
 			NextIteration();
@@ -117,15 +117,15 @@ namespace PsychologicalTest
 				case TestIteration.Mathematical:
 					NextIterationMathematical();
 					break;
-				case TestIteration.Memory:
-					NextIterationMemory();
-					break;
-				case TestIteration.Encryption:
-					NextIterationEncryption();
-					break;
-				case TestIteration.MissingDetails:
-					NextIterationMissingDetails();
-					break;
+				//case TestIteration.Memory:
+				//	NextIterationMemory();
+				//	break;
+				//case TestIteration.Encryption:
+				//	NextIterationEncryption();
+				//	break;
+				//case TestIteration.MissingDetails:
+				//	NextIterationMissingDetails();
+				//	break;
 				case TestIteration.Result:
 					Result();
 					break;
@@ -292,7 +292,7 @@ namespace PsychologicalTest
 			{
 				mainTextLabel.Visible = true;
 				showDescription = false;
-				mainTextLabel.Text = "Следующее задание - проверка на память.\nСначала вам будет дано 3 секунды для того чтобы запомнить ряд цифр. А затем нужно ввести ряд В ОБРАТНОМ ПОРЯДКЕ(цифры пишутся через пробел).\nПример: ряд (8 9 4 3)\nОтвет: (3 4 9 8)";
+				mainTextLabel.Text = "Следующее задание - проверка на память.\nСначала вам будет дано 3 секунды для того чтобы запомнить ряд цифр. А затем нужно ввести ряд В ОБРАТНОМ ПОРЯДКЕ БЕЗ ПРОБЕЛОВ.\nПример: ряд (8 9 4 3)\nОтвет: (3498)";
 				AlignElements();	
 				return;
 			}
